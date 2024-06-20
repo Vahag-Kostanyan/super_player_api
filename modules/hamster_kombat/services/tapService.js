@@ -1,4 +1,5 @@
 import { currentDateInArmenia } from '../../../helpers/currentDateInArmenia.js';
+import { sendHamsterKombatSuccessNotification } from '../api/sendNotification.js';
 import HamsterKombatConfigsModel from '../models/configs.js'
 import HamsterKombatDataModel from '../models/data.js'
 import HamsterKombatLogsModel from '../models/logs.js';
@@ -25,9 +26,13 @@ class TapService {
                     return HamsterKombatLogsModel.set_log('from_sendRequest_then', result);
                 }
                 await HamsterKombatDataModel.set_response(result);
+                await sendHamsterKombatSuccessNotification(); 
             })
             .catch(error => {
-                console.log(error, "error");
+                HamsterKombatLogsModel.set_log('from_sendRequest_catch', error);
+            })
+            .finally(() => {
+                HamsterKombatConfigsModel.set_last_clime();
             });
     }
 
