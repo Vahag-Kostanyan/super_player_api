@@ -1,4 +1,6 @@
 import admin from "firebase-admin";
+import dotenv from "dotenv";
+dotenv.config();
 
 function init() {
   try {
@@ -24,4 +26,4 @@ function init() {
   }
 }
 
-module.exports = init();
+export default init();
