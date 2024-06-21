@@ -1,8 +1,8 @@
-import { currentDateInArmenia } from '../../../helpers/currentDateInArmenia.js';
-import { sendHamsterKombatSuccessNotification } from '../api/sendNotification.js';
-import HamsterKombatConfigsModel from '../models/configs.js'
-import HamsterKombatDataModel from '../models/data.js'
-import HamsterKombatLogsModel from '../models/logs.js';
+const { currentDateInArmenia } = require('../../../helpers/currentDateInArmenia.js');
+const { sendHamsterKombatSuccessNotification } = require('../api/sendNotification.js');
+const HamsterKombatConfigsModel = require('../models/configs.js');
+const HamsterKombatDataModel = require('../models/data.js');
+const HamsterKombatLogsModel = require('../models/logs.js');
 
 class TapService {
     async tap() {
@@ -59,4 +59,4 @@ class TapService {
     }
 }
 
-export default new TapService;
+module.exports = new TapService;

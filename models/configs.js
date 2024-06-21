@@ -1,4 +1,4 @@
-import db from '../fierbase.config.js'
+const db = require('../fierbase.config.js');
 
 class ConfigsModel {
     async hamster_kombat_status() {
@@ -7,4 +7,4 @@ class ConfigsModel {
     }
 }
 
-export default new ConfigsModel;
+module.exports = new ConfigsModel;

@@ -1,6 +1,6 @@
-import db from '../../../fierbase.config.js'
-import { currentDateInArmenia } from '../../../helpers/currentDateInArmenia.js';
-import HamsterKombatLogsModel from './logs';
+const db = require('../../../fierbase.config.js');
+const { currentDateInArmenia } = require('../../../helpers/currentDateInArmenia.js');
+const HamsterKombatLogsModel = require('./logs');
 
 class HamsterKombatConfigsModel {
     async last_clime() {
@@ -28,4 +28,4 @@ class HamsterKombatConfigsModel {
     }
 }
 
-export default new HamsterKombatConfigsModel;
+module.exports = new HamsterKombatConfigsModel;

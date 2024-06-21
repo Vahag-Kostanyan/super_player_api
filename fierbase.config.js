@@ -1,5 +1,6 @@
-import admin from "firebase-admin";
-import dotenv from "dotenv";
+const admin = require('firebase-admin');
+const dotenv = require('dotenv');
+
 dotenv.config();
 
 function init() {
@@ -26,4 +27,4 @@ function init() {
   }
 }
 
-export default init();
+module.exports = init();

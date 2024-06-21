@@ -1,5 +1,5 @@
-import { canClime } from '../helpers/canClime.js';
-import TapService from '../services/tapService.js';
+const { canClime } = require('../helpers/canClime.js');
+const TapService = require('../services/tapService.js');
 
 class HamsterKombatController {
     async tap(req, res, next) {
@@ -16,4 +16,4 @@ class HamsterKombatController {
     }
 }
 
-export default new HamsterKombatController();
+module.exports = new HamsterKombatController();

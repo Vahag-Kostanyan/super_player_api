@@ -1,4 +1,4 @@
-export const convertToPlainObject = (obj) => {
+const convertToPlainObject = (obj) => {
     if (obj === null || obj === undefined) {
         return obj;
     }
@@ -20,3 +20,5 @@ export const convertToPlainObject = (obj) => {
     }
     return plainObject;
 };
+
+module.exports = {convertToPlainObject};

@@ -1,4 +1,4 @@
-export const currentDateInArmenia = () => {
+const currentDateInArmenia = () => {
 
   let currentDate = new Date();
 
@@ -13,3 +13,5 @@ export const currentDateInArmenia = () => {
 
   return unixTimestamp;
 }
+
+module.exports = {currentDateInArmenia};

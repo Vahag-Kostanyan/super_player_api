@@ -1,6 +1,6 @@
-import HamsterKombatLogsModel from '../models/logs';
+const HamsterKombatLogsModel = require('../models/logs');
 
-export const sendHamsterKombatSuccessNotification =  async () => {
+const sendHamsterKombatSuccessNotification =  async () => {
     try{
         let url = 'https://bot-manager-t9qe.onrender.com/send_hamster_kombat_notification';
         const options = {
@@ -16,3 +16,5 @@ export const sendHamsterKombatSuccessNotification =  async () => {
       HamsterKombatLogsModel.set_log('sendHamsterKombatSuccessNotification_error', error);
     }
 }
+
+module.exports = {sendHamsterKombatSuccessNotification};

@@ -1,7 +1,7 @@
-import db from '../../../fierbase.config.js'
-import { convertToPlainObject } from '../../../helpers/convertToPlainObject.js';
-import { currentDateInArmenia } from '../../../helpers/currentDateInArmenia.js';
-import HamsterKombatLogsModel from './logs.js';
+const db = require('../../../fierbase.config.js');
+const { convertToPlainObject } = require('../../../helpers/convertToPlainObject.js');
+const { currentDateInArmenia } = require('../../../helpers/currentDateInArmenia.js');
+const HamsterKombatLogsModel = require('./logs.js');
 
 class HamsterKombatDataModel {
     async set_request(request) {
@@ -23,4 +23,4 @@ class HamsterKombatDataModel {
     }
 }
 
-export default new HamsterKombatDataModel;
+module.exports = new HamsterKombatDataModel;
