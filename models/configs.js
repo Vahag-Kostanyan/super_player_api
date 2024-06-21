@@ -1,0 +1,10 @@
+const db = require('../fierbase.config.js');
+
+class ConfigsModel {
+    async hamster_kombat_status() {
+        const data = (await db.collection("configs").doc("hamster_kombat").get()).data();
+        return data.status;
+    }
+}
+
+module.exports = new ConfigsModel;
