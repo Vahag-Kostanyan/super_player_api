@@ -14,13 +14,12 @@ class ClaimDailyCipherService {
             await this.send(token, cipher);
         });
 
-        HamsterClaimDailyCipherModel.set_last_clime();
+        // HamsterClaimDailyCipherModel.set_last_clime();
     }
 
     async send(token, cipher) {
         const requestOptions = await this.prepareRequestOptions(token, cipher);
         const url = "https://api.hamsterkombat.io/clicker/claim-daily-cipher";
-
         await HamsterKombatDataModel.set_request({ url, requestOptions });
 
         await fetch(url, requestOptions)
