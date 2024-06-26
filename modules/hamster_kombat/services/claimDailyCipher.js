@@ -26,7 +26,12 @@ class ClaimDailyCipherService {
             .then((response) => response.json())
             .then(async result => {
                 await HamsterKombatDataModel.set_response(result);
-                await sendHamsterKombatSendNotification('Claimed successfully');
+
+                if(result.error_code){
+                    await sendHamsterKombatSendNotification('Something went wrong, please check the logs');
+                }else{
+                    await sendHamsterKombatSendNotification('Claimed successfully');
+                }
             })
             .catch(async error => {
                 HamsterKombatLogsModel.set_log('from_sendRequest_catch', error);
