@@ -1,5 +1,6 @@
-const { canClime } = require('../helpers/canClime.js');
+const { canClime, canClaimDailyCipher } = require('../helpers/can.js');
 const TapService = require('../services/tapService.js');
+const ClaimDailyCipher = require('../services/claimDailyCipher.js');
 
 class HamsterKombatController {
     async tap(req, res, next) {
@@ -12,6 +13,20 @@ class HamsterKombatController {
             }
         } catch (error) {
             next(error)
+        }
+    }
+
+
+    async  claimDailyCipher(req, res, next) {
+        try{
+            if (await canClaimDailyCipher()) {
+                await ClaimDailyCipher.claimDailyCipher(req);
+                res.json({ status: 200, message: 'claimed successfully' });
+            }else{
+                res.json({ status: 200, message: 'It is too early or status is false' });
+            }
+        }catch(error){
+            next(error);
         }
     }
 }
