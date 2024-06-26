@@ -1,5 +1,6 @@
 const { currentDateInArmenia } = require('../../../helpers/currentDateInArmenia.js');
 const HamsterKombatConfigs = require('../models/configs.js');
+const HamsterKombatClaimDailyCipher = require('../models/claimDailyCipher.js');
 const ConfigsModel = require('../../../models/configs.js');
 
 const canClime = async () => {
@@ -10,4 +11,12 @@ const canClime = async () => {
     return false;
 }
 
-module.exports = {canClime};
+const canClaimDailyCipher = async () => {
+    const clime_intervale = await HamsterKombatClaimDailyCipher.clime_intervale();
+    const lastClime =  await HamsterKombatClaimDailyCipher.last_clime();
+
+    if(clime_intervale + lastClime  <= currentDateInArmenia() && await ConfigsModel.hamster_kombat_status()) return true;
+    return false;
+}
+
+module.exports = {canClime, canClaimDailyCipher};

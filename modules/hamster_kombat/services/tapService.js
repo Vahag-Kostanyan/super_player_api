@@ -1,5 +1,5 @@
 const { currentDateInArmenia } = require('../../../helpers/currentDateInArmenia.js');
-const { sendHamsterKombatSuccessNotification } = require('../api/sendNotification.js');
+const { sendHamsterKombatSendNotification } = require('../api/sendNotification.js');
 const HamsterKombatConfigsModel = require('../models/configs.js');
 const HamsterKombatDataModel = require('../models/data.js');
 const HamsterKombatLogsModel = require('../models/logs.js');
@@ -8,9 +8,11 @@ class TapService {
     async tap() {
         let tokens = await HamsterKombatConfigsModel.tokens();
 
-        tokens.forEach(async token => {
+        await tokens.forEach(async token => {
             await this.send(token);
         });
+
+        HamsterKombatConfigsModel.set_last_clime();
     }
 
     async send(token) {
@@ -26,14 +28,12 @@ class TapService {
                     return HamsterKombatLogsModel.set_log('from_sendRequest_then', result);
                 }
                 await HamsterKombatDataModel.set_response(result);
-                await sendHamsterKombatSuccessNotification(); 
+                await sendHamsterKombatSendNotification('Hamster Kombat Balance updated successfully'); 
             })
-            .catch(error => {
-                HamsterKombatLogsModel.set_log('from_sendRequest_catch', error);
+            .catch(async error => {
+                await HamsterKombatLogsModel.set_log('from_sendRequest_catch', error);
+                await sendHamsterKombatSendNotification('Something went wrong, please check the logs'); 
             })
-            .finally(() => {
-                HamsterKombatConfigsModel.set_last_clime();
-            });
     }
 
     prepareRequestOptions(token) {
@@ -55,7 +55,7 @@ class TapService {
             headers: headers,
             body: raw,
             redirect: "follow",
-        };;
+        };
     }
 }
 
