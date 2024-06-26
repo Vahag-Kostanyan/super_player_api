@@ -14,7 +14,7 @@ class ClaimDailyCipherService {
             await this.send(token, cipher);
         });
 
-        // HamsterClaimDailyCipherModel.set_last_clime();
+        HamsterClaimDailyCipherModel.set_last_clime();
     }
 
     async send(token, cipher) {
