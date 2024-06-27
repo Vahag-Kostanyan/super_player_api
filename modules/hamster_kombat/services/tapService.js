@@ -1,5 +1,5 @@
+const { sendSendNotification } = require('../../../api/sendNotification.js');
 const { currentDateInArmenia } = require('../../../helpers/currentDateInArmenia.js');
-const { sendHamsterKombatSendNotification } = require('../api/sendNotification.js');
 const HamsterKombatConfigsModel = require('../models/configs.js');
 const HamsterKombatDataModel = require('../models/data.js');
 const HamsterKombatLogsModel = require('../models/logs.js');
@@ -28,11 +28,11 @@ class TapService {
                     return HamsterKombatLogsModel.set_log('from_sendRequest_then', result);
                 }
                 await HamsterKombatDataModel.set_response(result);
-                await sendHamsterKombatSendNotification('Hamster Kombat Balance updated successfully'); 
+                await sendSendNotification('Hamster Kombat Balance updated successfully'); 
             })
             .catch(async error => {
                 await HamsterKombatLogsModel.set_log('from_sendRequest_catch', error);
-                await sendHamsterKombatSendNotification('Something went wrong, please check the logs'); 
+                await sendSendNotification('Something went wrong, please check the logs on HamsterKombat'); 
             })
     }
 
