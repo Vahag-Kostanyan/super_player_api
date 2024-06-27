@@ -1,9 +1,9 @@
 
-const { sendHamsterKombatSendNotification } = require('../api/sendNotification.js');
 const HamsterKombatConfigsModel = require('../models/configs.js');
 const HamsterKombatDataModel = require('../models/data.js');
 const HamsterKombatLogsModel = require('../models/logs.js');
 const HamsterClaimDailyCipherModel = require('../models/claimDailyCipher.js');
+const { sendSendNotification } = require('../../../api/sendNotification.js');
 
 class ClaimDailyCipherService {
     async claimDailyCipher(req) {
@@ -28,14 +28,14 @@ class ClaimDailyCipherService {
                 await HamsterKombatDataModel.set_response(result);
 
                 if(result.error_code){
-                    await sendHamsterKombatSendNotification('Something went wrong, please check the logs');
+                    await sendSendNotification('Something went wrong, please check the logs');
                 }else{
-                    await sendHamsterKombatSendNotification('Claimed successfully');
+                    await sendSendNotification('Claimed successfully');
                 }
             })
             .catch(async error => {
                 HamsterKombatLogsModel.set_log('from_sendRequest_catch', error);
-                await sendHamsterKombatSendNotification('Something went wrong, please check the logs');
+                await sendSendNotification('Something went wrong, please check the logs on HamsterKombat');
             });
     }
 
