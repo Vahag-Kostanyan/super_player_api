@@ -5,6 +5,11 @@ class ConfigsModel {
         const data = (await db.collection("configs").doc("hamster_kombat").get()).data();
         return data.status;
     }
+
+    async psp_status() {
+        const data = (await db.collection("configs").doc("psp").get()).data();
+        return data.status;
+    }
 }
 
 module.exports = new ConfigsModel;
