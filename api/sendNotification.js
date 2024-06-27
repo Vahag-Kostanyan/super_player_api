@@ -1,6 +1,6 @@
 const sendSendNotification =  async (message) => {
   try{
-      let url = 'http://localhost:5000/send_notification';
+      let url = process.env.BOT_MANAGER_HOST + '/send_notification';
       const options = {
           method: 'POST', // HTTP method
           headers: {
