@@ -2,24 +2,23 @@
 const HamsterKombatConfigsModel = require('../models/configs.js');
 const HamsterKombatDataModel = require('../models/data.js');
 const HamsterKombatLogsModel = require('../models/logs.js');
-const HamsterClaimDailyCipherModel = require('../models/claimDailyCipher.js');
+const HamsterClaimDailyRewardModel = require('../models/climeDailyReward.js');
 const { sendSendNotification } = require('../../../api/sendNotification.js');
 
-class ClaimDailyCipherService {
-    async claimDailyCipher(req) {
+class ClaimDailyRewardService {
+    async claimDailyReward() {
         const tokens = await HamsterKombatConfigsModel.tokens();
-        const cipher = req.body.cipher;
 
         await tokens.forEach(async token => {
-            await this.send(token, cipher);
+            await this.send(token);
         });
 
-        HamsterClaimDailyCipherModel.set_last_clime();
+        HamsterClaimDailyRewardModel.set_last_clime();
     }
 
-    async send(token, cipher) {
-        const requestOptions = await this.prepareRequestOptions(token, cipher);
-        const url = "https://api.hamsterkombat.io/clicker/claim-daily-cipher";
+    async send(token) {
+        const requestOptions = await this.prepareRequestOptions(token);
+        const url = "https://api.hamsterkombat.io/clicker/check-task";
         await HamsterKombatDataModel.set_request({ url, requestOptions });
 
         await fetch(url, requestOptions)
@@ -30,7 +29,7 @@ class ClaimDailyCipherService {
                 if(result.error_code){
                     await sendSendNotification('Something went wrong, please check the logs');
                 }else{
-                    await sendSendNotification('claimed successfully');
+                    await sendSendNotification('Reward Claimed successfully');
                 }
             })
             .catch(async error => {
@@ -39,7 +38,7 @@ class ClaimDailyCipherService {
             });
     }
 
-    prepareRequestOptions(token, cipher) {
+    prepareRequestOptions(token) {
         const headers = new Headers();
         headers.append(
             "Authorization",
@@ -48,7 +47,7 @@ class ClaimDailyCipherService {
         headers.append("Content-Type", "application/json");
 
         const raw = JSON.stringify({
-            cipher
+            taskId: 'streak_days'
         });
 
         return {
@@ -63,4 +62,4 @@ class ClaimDailyCipherService {
 }
 
 
-module.exports = new ClaimDailyCipherService;
+module.exports = new ClaimDailyRewardService;
