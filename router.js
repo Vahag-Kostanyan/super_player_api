@@ -8,6 +8,7 @@ router.get('/', (req, res) => res.json({ status: 200, message: 'Server working' 
 
 router.get('/hamster_kompat/tap', HamsterKombatController.tap);
 router.post('/hamster_kompat/claim-daily-cipher', HamsterKombatController.claimDailyCipher);
+router.post('/hamster_kompat/claim-daily-reward', HamsterKombatController.climeDailyReward);
 
 router.get('/psp/clime', PSPController.clime);
 
