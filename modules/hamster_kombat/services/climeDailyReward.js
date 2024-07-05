@@ -10,7 +10,9 @@ class ClaimDailyRewardService {
         const tokens = await HamsterKombatConfigsModel.tokens();
 
         await tokens.forEach(async token => {
-            await this.send(token);
+            await setTimeout(async () => {
+                await this.send(token);
+            }, 3000);
         });
 
         HamsterClaimDailyRewardModel.set_last_clime();

@@ -10,7 +10,7 @@ class ClimeService {
         await tokens.forEach(async token => {
             await setTimeout(async () => {
                 await this.send(token);
-            }, 1000);
+            }, 3000);
         });
 
         PSPConfigsModel.set_last_clime();

@@ -13,7 +13,7 @@ class ClaimDailyCipherService {
         await tokens.forEach(async token => {
             await setTimeout(async () => {
                 await this.send(token, cipher);
-            }, 1000);
+            }, 3000);
         });
 
         HamsterClaimDailyCipherModel.set_last_clime();
