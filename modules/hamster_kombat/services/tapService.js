@@ -9,7 +9,9 @@ class TapService {
         let tokens = await HamsterKombatConfigsModel.tokens();
 
         await tokens.forEach(async token => {
-            await this.send(token);
+            await setTimeout(async () => {
+                await this.send(token);                
+            }, 1000);
         });
 
         HamsterKombatConfigsModel.set_last_clime();

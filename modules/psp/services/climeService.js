@@ -8,7 +8,9 @@ class ClimeService {
         let tokens = await PSPConfigsModel.tokens();
 
         await tokens.forEach(async token => {
-            await this.send(token);
+            await setTimeout(async () => {
+                await this.send(token);
+            }, 1000);
         });
 
         PSPConfigsModel.set_last_clime();

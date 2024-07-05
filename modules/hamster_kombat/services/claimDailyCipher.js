@@ -11,7 +11,9 @@ class ClaimDailyCipherService {
         const cipher = req.body.cipher;
 
         await tokens.forEach(async token => {
-            await this.send(token, cipher);
+            await setTimeout(async () => {
+                await this.send(token, cipher);
+            }, 1000);
         });
 
         HamsterClaimDailyCipherModel.set_last_clime();
