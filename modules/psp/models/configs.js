@@ -3,28 +3,29 @@ const { currentDateInArmenia } = require('../../../helpers/currentDateInArmenia.
 const PSPLogsModel = require('./logs');
 
 class PSPConfigsModel {
-    async last_clime() {
-        const data = (await db.collection("psp").doc("configs").get()).data();
-        return data.lastClime;
+    async getConfigs() {
+        const snapshot = await db.collection("psp").doc("new_configs").collection("configs").get();
+        const configs = [];
+    
+        snapshot.forEach(doc => {
+          configs.push(doc.data());
+        });
+
+        return configs;
     }
 
-    async set_last_clime() {
+    async updateConfigsLastClime(id) {
         try {
-            const doc = await db.collection('psp').doc('configs')
-            await doc.update({ lastClime: currentDateInArmenia() });
+            const ref = await db.collection("psp").doc("new_configs").collection("configs").doc(String(id));
+
+            await ref.update({
+                lastClime: currentDateInArmenia()
+            });
+
         } catch (error) {
-            PSPLogsModel.set_log('getPSPTokens_error', error);
+            PSPLogsModel.set_log('setPSPTokens_error', error);
         }
-    }
 
-    async clime_intervale() {
-        const data = (await db.collection("psp").doc("configs").get()).data();
-        return data.climeIntervale;
-    }
-
-    async tokens() {
-        const data = (await db.collection("psp").doc("configs").get()).data();
-        return data.tokens;
     }
 }
 
