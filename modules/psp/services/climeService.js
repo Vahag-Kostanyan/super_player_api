@@ -11,7 +11,7 @@ class ClimeService {
         await configs.forEach(async (config, index) => {
             if(await this.canClime(config)){
                 await this.send(config);
-                await PSPConfigsModel.updateConfigsLastClime(index + 1);
+                await PSPConfigsModel.updateConfigsLastClime(index);
             }
         });
     }
