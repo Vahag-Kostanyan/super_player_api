@@ -5,10 +5,10 @@ const PSPLogsModel = require('./logs');
 class PSPConfigsModel {
     async getConfigs() {
         const snapshot = await db.collection("psp").doc("new_configs").collection("configs").get();
-        const configs = [];
+        const configs = new Map();
     
         snapshot.forEach(doc => {
-          configs.push(doc.data());
+            configs.set(doc.id, doc.data());
         });
 
         return configs;

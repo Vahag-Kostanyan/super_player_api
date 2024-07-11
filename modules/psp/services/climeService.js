@@ -8,8 +8,6 @@ class ClimeService {
     async clime() {
         let configs = await PSPConfigsModel.getConfigs();
 
-        configs = await Object.values(configs);
-
         await configs.forEach(async (config, index) => {
             if(await this.canClime(config)){
                 await this.send(config);
