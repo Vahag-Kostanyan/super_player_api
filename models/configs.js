@@ -10,6 +10,11 @@ class ConfigsModel {
         const data = (await db.collection("configs").doc("psp").get()).data();
         return data.status;
     }
+
+    async blum_status() {
+        const data = (await db.collection("configs").doc("blum_status").get()).data();
+        return data.status;
+    }
 }
 
 module.exports = new ConfigsModel;

@@ -1,6 +1,7 @@
 const express = require('express');
 const HamsterKombatController = require('./modules/hamster_kombat/controllers/controller.js');
 const PSPController = require('./modules/psp/controllers/controller.js');
+const BlumController = require('./modules/blum/controllers/controller.js');
 
 const router = express.Router();
 
@@ -11,5 +12,7 @@ router.post('/hamster_kompat/claim-daily-cipher', HamsterKombatController.claimD
 router.get('/hamster_kompat/claim-daily-reward', HamsterKombatController.climeDailyReward);
 
 router.get('/psp/clime', PSPController.clime);
+
+router.get('/blum/climeAndFarm', BlumController.climeAndFarm);
 
 module.exports = router;
