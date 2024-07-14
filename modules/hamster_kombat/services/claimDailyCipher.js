@@ -21,7 +21,7 @@ class ClaimDailyCipherService {
 
     async send(token, cipher) {
         const requestOptions = await this.prepareRequestOptions(token, cipher);
-        const url = "https://api.hamsterkombat.io/clicker/claim-daily-cipher";
+        const url = "https://api.hamsterkombatgame.io/clicker/claim-daily-cipher";
         await HamsterKombatDataModel.set_request({ url, requestOptions });
 
         await fetch(url, requestOptions)

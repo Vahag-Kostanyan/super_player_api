@@ -19,7 +19,7 @@ class TapService {
 
     async send(token) {
         const requestOptions = await this.prepareRequestOptions(token);
-        const url =  "https://api.hamsterkombat.io/clicker/tap";
+        const url =  "https://api.hamsterkombatgame.io/clicker/tap";
         
         await HamsterKombatDataModel.set_request({url, requestOptions});
 
