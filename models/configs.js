@@ -12,7 +12,7 @@ class ConfigsModel {
     }
 
     async blum_status() {
-        const data = (await db.collection("configs").doc("blum_status").get()).data();
+        const data = (await db.collection("configs").doc("blum").get()).data();
         return data.status;
     }
 }
