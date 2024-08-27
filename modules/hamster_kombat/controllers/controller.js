@@ -2,6 +2,7 @@ const { canClime, canClaimDailyCipher, canClimeDailyReward } = require('../helpe
 const TapService = require('../services/tapService.js');
 const ClaimDailyCipher = require('../services/claimDailyCipher.js');
 const ClaimDailyReward = require('../services/climeDailyReward.js');
+const ByService = require('../services/byService.js');
 
 class HamsterKombatController {
     async tap(req, res, next) {
@@ -9,7 +10,7 @@ class HamsterKombatController {
             if (await canClime()) {
                 await TapService.tap(next);
                 res.json({ status: 200, message: 'sended successfully' });
-            }else{
+            } else {
                 res.json({ status: 200, message: 'It is too early or status is false' });
             }
         } catch (error) {
@@ -18,28 +19,37 @@ class HamsterKombatController {
     }
 
 
-    async  claimDailyCipher(req, res, next) {
-        try{
+    async claimDailyCipher(req, res, next) {
+        try {
             if (await canClaimDailyCipher()) {
                 await ClaimDailyCipher.claimDailyCipher(req);
                 res.json({ status: 200, message: 'claimed successfully' });
-            }else{
+            } else {
                 res.json({ status: 200, message: 'It is too early or status is false' });
             }
-        }catch(error){
+        } catch (error) {
             next(error);
         }
     }
 
-    async  climeDailyReward(req, res, next) {
-        try{
+    async climeDailyReward(req, res, next) {
+        try {
             if (await canClimeDailyReward()) {
                 await ClaimDailyReward.claimDailyReward();
                 res.json({ status: 200, message: 'claimed successfully' });
-            }else{
+            } else {
                 res.json({ status: 200, message: 'It is too early or status is false' });
             }
-        }catch(error){
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async byCard(req, res, next) {
+        try {
+            await ByService.by();
+            res.json({ status: 200, message: 'claimed successfully' });
+        } catch (error) {
             next(error);
         }
     }
