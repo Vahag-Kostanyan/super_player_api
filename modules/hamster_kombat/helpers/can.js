@@ -28,4 +28,8 @@ const canClimeDailyReward = async () => {
     return false;
 }
 
-module.exports = {canClime, canClaimDailyCipher, canClimeDailyReward};
+const canByCard = async () => {
+    return ConfigsModel.hamster_kombat_status();
+}
+
+module.exports = {canClime, canClaimDailyCipher, canClimeDailyReward, canByCard};
