@@ -1,4 +1,4 @@
-const { canClime, canClaimDailyCipher, canClimeDailyReward } = require('../helpers/can.js');
+const { canClime, canClaimDailyCipher, canClimeDailyReward, canByCard } = require('../helpers/can.js');
 const TapService = require('../services/tapService.js');
 const ClaimDailyCipher = require('../services/claimDailyCipher.js');
 const ClaimDailyReward = require('../services/climeDailyReward.js');
@@ -47,8 +47,10 @@ class HamsterKombatController {
 
     async byCard(req, res, next) {
         try {
-            await ByService.by();
-            res.json({ status: 200, message: 'claimed successfully' });
+            if(await canByCard()){
+                await ByService.by();
+                res.json({ status: 200, message: 'claimed successfully' });
+            }
         } catch (error) {
             next(error);
         }

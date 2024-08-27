@@ -17,6 +17,7 @@ class ByService {
         if(data.upgradeId){
             let card = await this.byCard(data, token);
             card = await card.json();
+            sendSendNotification(`cade with id ${data.upgradeId} has been purchased` );
         }
     }
 
