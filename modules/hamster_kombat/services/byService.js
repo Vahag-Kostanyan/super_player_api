@@ -32,11 +32,18 @@ class ByService {
         let res = await fetch('https://api.hamsterkombatgame.io/clicker/upgrades-for-buy', requestOptions);
         let data = await res.json();
         let dataId = null;
+        let profit = 0;
 
         for(const item of data?.upgradesForBuy){
-            if(item.price / 1000 <= item.profitPerHourDelta && item.price < userData.clickerUser.balanceCoins){
+            if(
+                item.isAvailable &&
+                !item.isExpired &&
+                profit < item.profitPerHourDelta &&
+                item.price < userData.clickerUser.balanceCoins &&
+                item.price / 1000 <= item.profitPerHourDelta
+            ){
+                profit = item.profitPerHourDelta;
                 dataId = item.id;
-                break;
             }
         }
         
