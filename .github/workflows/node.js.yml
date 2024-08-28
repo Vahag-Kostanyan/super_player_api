@@ -27,8 +27,11 @@ jobs:
     - run: npm ci
     - run: |
         touch .env
-        # echo "$(( secrets.PRODUCTION_ENV ))" > .env
         echo "PRODUCTION_ENV=${{ secrets.PRODUCTION_ENV }}" >> .env
+    
+    - name: Install PM2
+      run: npm install -g pm2
+
     - name: Start or update project with PM2
       run: |
         if pm2 list | grep -q "super_player_server"; then 
