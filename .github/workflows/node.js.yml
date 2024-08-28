@@ -34,5 +34,5 @@ jobs:
         if pm2 list | grep -q "super_player_server"; then 
           pm2 reload super_player_server
         else 
-          pm2 start npm --name "super_player_server"  --start
+          pm2 start npm --name "super_player_server" -- start
         fi
