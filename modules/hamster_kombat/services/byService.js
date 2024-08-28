@@ -38,7 +38,9 @@ class ByService {
             if(
                 item.isAvailable &&
                 !item.isExpired &&
+                !item?.cooldownSeconds &&
                 profit < item.profitPerHourDelta &&
+                item.price < 200000000 &&
                 item.price < userData.clickerUser.balanceCoins &&
                 item.price / 1000 <= item.profitPerHourDelta
             ){
