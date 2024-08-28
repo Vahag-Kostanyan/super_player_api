@@ -27,7 +27,7 @@ jobs:
     
     - name: Create and configure .env file
       run: |
-        echo "PRODUCTION_ENV=${{ secrets.PRODUCTION_ENV }}" > .env
+        echo 'PRODUCTION_ENV=${{ secrets.PRODUCTION_ENV }}' > .env
     
     - name: Install PM2
       run: npm install -g pm2
