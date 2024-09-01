@@ -1,0 +1,41 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - run: npm ci
+    
+    - name: Create and configure .env file
+      run: |
+        echo 'PRODUCTION_ENV=${{ secrets.PRODUCTION_ENV }}' > .env
+    
+    - name: Install PM2
+      run: npm install -g pm2
+    
+    - name: Start or update project with PM2
+      run: |
+        if pm2 list | grep -q "super_player_server"; then 
+          pm2 reload super_player_server
+        else 
+          pm2 start npm --name "super_player_server" -- start
+        fi

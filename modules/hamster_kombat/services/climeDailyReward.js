@@ -10,7 +10,9 @@ class ClaimDailyRewardService {
         const tokens = await HamsterKombatConfigsModel.tokens();
 
         await tokens.forEach(async token => {
-            await this.send(token);
+            await setTimeout(async () => {
+                await this.send(token);
+            }, 3000);
         });
 
         HamsterClaimDailyRewardModel.set_last_clime();
@@ -18,7 +20,7 @@ class ClaimDailyRewardService {
 
     async send(token) {
         const requestOptions = await this.prepareRequestOptions(token);
-        const url = "https://api.hamsterkombat.io/clicker/check-task";
+        const url = "https://api.hamsterkombatgame.io/clicker/check-task";
         await HamsterKombatDataModel.set_request({ url, requestOptions });
 
         await fetch(url, requestOptions)

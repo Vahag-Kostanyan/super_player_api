@@ -11,7 +11,9 @@ class ClaimDailyCipherService {
         const cipher = req.body.cipher;
 
         await tokens.forEach(async token => {
-            await this.send(token, cipher);
+            await setTimeout(async () => {
+                await this.send(token, cipher);
+            }, 3000);
         });
 
         HamsterClaimDailyCipherModel.set_last_clime();
@@ -19,7 +21,7 @@ class ClaimDailyCipherService {
 
     async send(token, cipher) {
         const requestOptions = await this.prepareRequestOptions(token, cipher);
-        const url = "https://api.hamsterkombat.io/clicker/claim-daily-cipher";
+        const url = "https://api.hamsterkombatgame.io/clicker/claim-daily-cipher";
         await HamsterKombatDataModel.set_request({ url, requestOptions });
 
         await fetch(url, requestOptions)
