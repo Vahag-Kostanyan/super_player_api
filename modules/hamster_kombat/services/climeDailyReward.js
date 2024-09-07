@@ -49,7 +49,7 @@ class ClaimDailyRewardService {
         headers.append("Content-Type", "application/json");
 
         const raw = JSON.stringify({
-            taskId: 'streak_days'
+            taskId: 'streak_days_special'
         });
 
         return {
