@@ -6,8 +6,7 @@ on:
 
 jobs:
   build:
-
-    runs-on: self-hosted
+    runs-on: self-hosted # Assumes this runner is set up on an Ubuntu server
 
     strategy:
       matrix:
@@ -15,27 +14,33 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    - run: npm ci
-    
-    - name: Create and configure .env file
-      run: |
-        echo 'PRODUCTION_ENV=${{ secrets.PRODUCTION_ENV }}' > .env
-    
-    - name: Install PM2
-      run: npm install -g pm2
-    
-    - name: Start or update project with PM2
-      run: |
-        if pm2 list | grep -q "super_player_server"; then 
-          pm2 reload super_player_server
-        else 
-          pm2 start npm --name "super_player_server" -- start
-        fi
+      # Step 1: Checkout the repository
+      - uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js on the runner
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      # Step 3: Install Node.js dependencies using npm
+      - run: npm ci
+
+      # Step 4: Create and configure the .env file using environment secrets
+      - name: Create and configure .env file
+        run: |
+          echo 'PRODUCTION_ENV=${{ secrets.PRODUCTION_ENV }}' > .env
+
+      # Step 5: Install PM2 globally to manage the Node.js application
+      - name: Install PM2
+        run: npm install -g pm2
+
+      # Step 6: Start or update the project using PM2
+      - name: Start or update project with PM2
+        run: |
+          if pm2 list | grep -q "super_player_server"; then 
+            pm2 reload super_player_server
+          else 
+            pm2 start npm --name "super_player_server" -- start
+          fi
