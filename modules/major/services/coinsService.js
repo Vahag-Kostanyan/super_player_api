@@ -17,9 +17,9 @@ class CoinsService extends MajorBaseService {
         await MajorConfigModule.updateConfigsToken(config.id, config.token);
     }
 
-    can(config) {
+    async can(config) {
         if ((config?.climeIntervale + config?.coinsLastClime) <= currentDateInArmenia() && config.status) return true;
-        return true;
+        return false;
     }
 
 }
