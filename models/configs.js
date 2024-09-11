@@ -15,6 +15,11 @@ class ConfigsModel {
         const data = (await db.collection("configs").doc("pocketFi").get()).data();
         return data.status;
     }
+
+    async major_status() {
+        const data = (await db.collection("configs").doc("major").get()).data();
+        return data.status;
+    }
 }
 
 module.exports = new ConfigsModel;
