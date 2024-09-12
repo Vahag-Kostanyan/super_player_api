@@ -13,6 +13,7 @@ class ConfigsModel {
 
     async blum_status() {
         const data = (await db.collection("configs").doc("blum").get()).data();
+        return data.status;
     }
     
     async pocketFi_status() {

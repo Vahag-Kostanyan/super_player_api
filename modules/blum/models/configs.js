@@ -14,6 +14,20 @@ class BlumConfigsModel {
         return configs;
     }
 
+    async updateConfigsToken(id, token) {
+        try {
+            const ref = await db.collection("blum").doc("configs").collection("configs").doc(String(id));
+
+            await ref.update({
+                token: token
+            });
+
+        } catch (error) {
+            BlumLogsModel.set_log('setBlumTokens_error', error);
+        }
+
+    }
+
     async updateConfigsLastClime(id) {
         try {
             const ref = await db.collection("blum").doc("configs").collection("configs").doc(String(id));
@@ -25,7 +39,19 @@ class BlumConfigsModel {
         } catch (error) {
             BlumLogsModel.set_log('setBlumTokens_error', error);
         }
+    }
 
+    async updateConfigsLastFarm(id) {
+        try {
+            const ref = await db.collection("blum").doc("configs").collection("configs").doc(String(id));
+
+            await ref.update({
+                lastFarm: currentDateInArmenia()
+            });
+
+        } catch (error) {
+            BlumLogsModel.set_log('setBlumTokens_error', error);
+        }
     }
 }
 

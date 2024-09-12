@@ -1,8 +1,8 @@
 const ConfigsModel = require('../../../models/configs');
 
-const canClime = async () => {
+const can = async () => {
     if(await ConfigsModel.blum_status()) return true;
     return false;
 }
 
-module.exports = {canClime};
+module.exports = {can};

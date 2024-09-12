@@ -2,85 +2,64 @@ const { sendSendNotification } = require('../../../api/sendNotification.js');
 const { currentDateInArmenia } = require('../../../helpers/currentDateInArmenia.js');
 const blumConfigsModule = require('../models/configs.js');
 const BlumDataModel = require('../models/data.js');
-const BlumLogsModel = require('../models/logs.js');
+const BlumBaseService = require('./baseService.js');
 
-class climeAndFarmService {
-    async climeAndFarmService() {
-        const configs = await blumConfigsModule.getConfigs();
+class climeAndFarmService extends BlumBaseService  {
 
-        await configs.forEach(async (config, index) => {
-            if (await this.canCLime(config)) {
-                await this.worker(config, index);
-            }
-        });
+    async triggerAction (config) {
+        if(this.canClime(config)) await this.clime(config);
+        if(this.canFarm(config)) await this.farm(config);
     }
 
-    async worker(config, index) {
-        const requestOptions = await this.prepareRequestOptions(config.token);
-
-        await this.clime(requestOptions)
-        .then((response) => response.json())
-        .then(async result => {
-            await BlumDataModel.set_response(result);
-            await sendSendNotification(config.name + ' Blum Balance updated successfully');
-            await this.farm(requestOptions, config, index);
-        })
-        .catch(async error => {
-            console.log(error);
-            await BlumLogsModel.set_log('from_sendRequest_catch', error);
-            await sendSendNotification('Something went wrong, please check the logs on Blum for user' + config.name);
-        });
-    }
-
-    async clime(requestOptions) {
+    async clime(config) {
         const url = "https://game-domain.blum.codes/api/v1/farming/claim";
+        let requestOptions = this.prepareRequestOptions('POST', config.token);
 
         await BlumDataModel.set_request({ url, requestOptions });
+        let res = await fetch(url, requestOptions);
 
-        return fetch(url, requestOptions)
+        if(res.status === 200){
+            await sendSendNotification(`Blum clime done for player ${config.name}`);
+            await blumConfigsModule.updateConfigsLastClime(config.id);
+        }else{
+            console.log('clime');
+            let resData = await res.json();
+            console.log("clime", resData);
+            await sendSendNotification(`Blum clime failed for player ${config.name} with this result ${JSON.stringify(resData)}`);
+        }
     }
 
-    async farm(requestOptions, config, index) {
+    async farm(config) {
         const url = "https://game-domain.blum.codes/api/v1/farming/start";
+        let requestOptions = this.prepareRequestOptions('POST', config.token);
 
         await BlumDataModel.set_request({ url, requestOptions });
+        let res = await fetch(url, requestOptions);
 
-        await fetch(url, requestOptions)
-            .then((response) => response.json())
-            .then(async result => {
-                await BlumDataModel.set_response(result);
-                await sendSendNotification(config.name + ' Blum Balance updated successfully');
-                await blumConfigsModule.updateConfigsLastClime(index);
-            })
-            .catch(async error => {
-                await BlumLogsModel.set_log('from_sendRequest_catch', error);
-                await sendSendNotification('Something went wrong, please check the logs on Blum for user' + config.name);
-            });
+        if(res.status === 200){
+            await sendSendNotification(`Blum farm done for player ${config.name}`);
+            await blumConfigsModule.updateConfigsLastFarm(config.id);
+        }else{
+            console.log('farm');
+            let resData = await res.json();
+            console.log("farm", resData);
+            await sendSendNotification(`Blum farm failed for player ${config.name} with this result ${JSON.stringify(resData)}`);
+        }
     }
 
 
-    prepareRequestOptions(token) {
-        const headers = new Headers();
-
-        headers.append(
-            "Autehorization",
-            "Bearer " + token
-        );
-        headers.append("Content-Type", "application/json");
-
-        const raw = JSON.stringify({});
-
-        return {
-            method: "POST",
-            headers: headers,
-            body: raw,
-            redirect: "follow",
-        };
+    can(config) {
+        if (this.canClime(config) || this.canFarm(config)) return true;
+        return false;
     }
 
-
-    async canCLime(config) {
+    canClime(config){
         if (config.climeIntervale + config.lastClime <= currentDateInArmenia() && config.status) return true;
+        return false;
+    }
+
+    canFarm(config){
+        if (config.climeIntervale + config.lastFarm <= currentDateInArmenia() && config.status) return true;
         return false;
     }
 }
