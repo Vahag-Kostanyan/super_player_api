@@ -13,6 +13,15 @@ class ConfigsModel {
 
     async blum_status() {
         const data = (await db.collection("configs").doc("blum").get()).data();
+    }
+    
+    async pocketFi_status() {
+        const data = (await db.collection("configs").doc("pocketFi").get()).data();
+        return data.status;
+    }
+
+    async major_status() {
+        const data = (await db.collection("configs").doc("major").get()).data();
         return data.status;
     }
 }
