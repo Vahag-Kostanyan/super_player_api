@@ -1,9 +1,9 @@
 const { sendSendNotification } = require('../../../api/sendNotification.js');
 const blumConfigsModule = require('../models/configs.js');
 
-class BlumBaseService {
+class PrepareConfigService {
     constructor(){
-        if (new.target === BlumBaseService) {
+        if (new.target === PrepareConfigService) {
             throw new Error("Cannot instantiate an abstract class.");
         }
     }
@@ -84,4 +84,4 @@ class BlumBaseService {
 }
 
 
-module.exports = BlumBaseService;
+module.exports = PrepareConfigService;
