@@ -53,6 +53,19 @@ class BlumConfigsModel {
             BlumLogsModel.set_log('setBlumTokens_error', error);
         }
     }
+
+    async updateConfigsLastReward(id) {
+        try {
+            const ref = await db.collection("blum").doc("configs").collection("configs").doc(String(id));
+
+            await ref.update({
+                lastClimeReward: currentDateInArmenia()
+            });
+
+        } catch (error) {
+            BlumLogsModel.set_log('setBlumTokens_error', error);
+        }
+    }
 }
 
 module.exports = new BlumConfigsModel;

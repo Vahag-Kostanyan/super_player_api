@@ -74,7 +74,7 @@ class climeAndFarmService extends PrepareConfigService  {
             
             if(res.status === 200){
                 await sendSendNotification(`Blum climeReward done for player ${config.name}`);
-                await blumConfigsModule.updateConfigsLastFarm(config.id);
+                await blumConfigsModule.updateConfigsLastReward(config.id);
             }else{
                 const contentType = res.headers.get('content-type');
                 if (contentType && contentType.includes('application/json')) {
