@@ -11,6 +11,10 @@ class PrepareConfigService {
     async triggerAction () {
         throw new Error("The triggerAction method must be overridden in the child class");
     }
+    
+    can(config) {
+        throw new Error("The can method must be overridden in the child class");
+    }
 
     async run()
     {
