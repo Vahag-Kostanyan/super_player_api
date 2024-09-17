@@ -42,7 +42,7 @@ class ByService {
                 profit < item.profitPerHourDelta &&
                 item.price < 200000000 &&
                 item.price < userData.clickerUser.balanceCoins &&
-                (0.05 / 100) * item.price <= item.profitPerHourDelta
+                (0.02 / 100) * item.price <= item.profitPerHourDelta
             ){
                 profit = item.profitPerHourDelta;
                 dataId = item.id;
