@@ -37,7 +37,7 @@ class BlumConfigsModel {
             });
 
         } catch (error) {
-            BlumLogsModel.set_log('setBlumTokens_error', error);
+            BlumLogsModel.set_log('setBlum_updateConfigsLastClime_error', error);
         }
     }
 
@@ -50,7 +50,7 @@ class BlumConfigsModel {
             });
 
         } catch (error) {
-            BlumLogsModel.set_log('setBlumTokens_error', error);
+            BlumLogsModel.set_log('setBlum_updateConfigsLastFarm_error', error);
         }
     }
 
@@ -63,7 +63,7 @@ class BlumConfigsModel {
             });
 
         } catch (error) {
-            BlumLogsModel.set_log('setBlumTokens_error', error);
+            BlumLogsModel.set_log('setBlum_updateConfigsLastReward_error', error);
         }
     }
 }

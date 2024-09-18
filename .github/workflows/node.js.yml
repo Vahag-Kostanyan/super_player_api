@@ -30,7 +30,7 @@ jobs:
       # Step 4: Create and configure the .env file using environment secrets
       - name: Create and configure .env file
         run: |
-          echo 'PRODUCTION_ENV=${{ secrets.PRODUCTION_ENV }}' > .env
+          echo '${{ secrets.PRODUCTION_ENV }}' > .env
 
       # Step 5: Install PM2 globally to manage the Node.js application
       - name: Install PM2
