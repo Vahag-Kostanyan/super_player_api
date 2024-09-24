@@ -1,5 +1,6 @@
 const express = require('express');
 const HamsterKombatController = require('./modules/hamster_kombat/controllers/controller.js');
+const HamsterKombatSeasonTwoController = require('./modules/hamster_kombat_season_two/controllers/controller.js');
 const PSPController = require('./modules/psp/controllers/controller.js');
 const BlumController = require('./modules/blum/controllers/controller.js');
 const PocketFiController = require('./modules/pocketFi/controllers/controller.js');
@@ -10,10 +11,14 @@ const router = express.Router();
 router.get('/', (req, res) => res.json({ status: 200, message: 'Server working' }));
 
 // Hamster Kombat routes 
-router.get('/hamster_kompat/tap', HamsterKombatController.tap);
-router.get('/hamster_kombat/byCard', HamsterKombatController.byCard);
-router.post('/hamster_kompat/claim-daily-cipher', HamsterKombatController.claimDailyCipher);
-router.get('/hamster_kompat/claim-daily-reward', HamsterKombatController.climeDailyReward);
+// router.get('/hamster_kompat/tap', HamsterKombatController.tap);
+// router.get('/hamster_kombat/byCard', HamsterKombatController.byCard);
+// router.post('/hamster_kompat/claim-daily-cipher', HamsterKombatController.claimDailyCipher);
+// router.get('/hamster_kompat/claim-daily-reward', HamsterKombatController.climeDailyReward);
+
+
+// Hamster Kombat season two routes 
+router.get('/hamster_kombat_season_two/clime', HamsterKombatSeasonTwoController.climeCoins);
 
 // PSP routes 
 router.get('/psp/clime', PSPController.clime);

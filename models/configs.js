@@ -6,6 +6,11 @@ class ConfigsModel {
         return data.status;
     }
 
+    async hamster_kombat_season_two_status() {
+        const data = (await db.collection("configs").doc("hamster_kombat_season_two").get()).data();
+        return data.status;
+    }
+
     async psp_status() {
         const data = (await db.collection("configs").doc("psp").get()).data();
         return data.status;
