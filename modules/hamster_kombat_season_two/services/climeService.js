@@ -14,8 +14,6 @@ class HamsterKombatSeasonTwoClimeService {
     }
 
     async clime(config) {
-        console.log(config);
-
         const requestOptions = this.prepareRequestOptions(config.token);
 
         const res = await fetch('https://api.hamsterkombatgame.io/interlude/sync', requestOptions);        
@@ -49,8 +47,6 @@ class HamsterKombatSeasonTwoClimeService {
     }
 
     canClime(config){
-        console.log(config.climeIntervale, config.lastClime, config.id , currentDateInArmenia());
-        
         if(config.climeIntervale + config.lastClime  <= currentDateInArmenia() && config.status) return true;
         return false;
     }

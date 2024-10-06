@@ -15,6 +15,6 @@ app.get('/', (req, res) => res.redirect('/api'));
 app.use('/api', router);
 
 
-app.listen(process.env.PORT || 5000, () => console.log("Server is listening on port 5000"));
+app.listen(process.env.PORT || 5000, () => console.log("Server is running on host http://localhost:5000"));
 
 module.exports = app;

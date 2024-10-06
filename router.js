@@ -19,6 +19,7 @@ router.get('/', (req, res) => res.json({ status: 200, message: 'Server working' 
 
 // Hamster Kombat season two routes 
 router.get('/hamster_kombat_season_two/clime', HamsterKombatSeasonTwoController.climeCoins);
+router.get('/hamster_kombat_season_two/byCard', HamsterKombatSeasonTwoController.byCard);
 
 // PSP routes 
 router.get('/psp/clime', PSPController.clime);
