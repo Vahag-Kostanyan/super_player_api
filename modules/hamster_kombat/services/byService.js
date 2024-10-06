@@ -40,9 +40,9 @@ class ByService {
                 !item.isExpired &&
                 !item?.cooldownSeconds &&
                 profit < item.profitPerHourDelta &&
-                item.price < 200000000 &&
+                item.price < 150000000 &&
                 item.price < userData.clickerUser.balanceCoins &&
-                (0.05 / 100) * item.price <= item.profitPerHourDelta
+                (0.01 / 100) * item.price <= item.profitPerHourDelta
             ){
                 profit = item.profitPerHourDelta;
                 dataId = item.id;
