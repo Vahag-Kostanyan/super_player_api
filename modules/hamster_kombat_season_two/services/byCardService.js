@@ -44,7 +44,7 @@ class HamsterKombatSeasonTwoByCardService {
                 profit < item.profitPerHourDelta &&
                 item.price < config.maxPrice &&
                 item.price < userData.interludeUser.balanceDiamonds &&
-                (config.byRate / item.price) * 100 <= item.currentProfitPerHour
+                (item.currentProfitPerHour / item.price) * 100 <= config.byRate
             ){
                 profit = item.profitPerHourDelta;
                 dataId = item.id;
