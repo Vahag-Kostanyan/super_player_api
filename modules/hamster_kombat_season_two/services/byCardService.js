@@ -34,7 +34,6 @@ class HamsterKombatSeasonTwoByCardService {
         let res = await fetch('https://api.hamsterkombatgame.io/interlude/upgrades-for-buy', requestOptions);
         let data = await res.json();
         let dataId = null;
-        let name = null;
         let profit = 0;        
 
         for(const item of data?.upgradesForBuy){
@@ -45,11 +44,10 @@ class HamsterKombatSeasonTwoByCardService {
                 profit < item.profitPerHourDelta &&
                 item.price < config.maxPrice &&
                 item.price < userData.interludeUser.balanceDiamonds &&
-                (config.byRate / 100) * item.price <= item.currentProfitPerHour
+                (config.byRate / item.price) * 100 <= item.currentProfitPerHour
             ){
                 profit = item.profitPerHourDelta;
                 dataId = item.id;
-                name = item.name;
             }
         }
         
